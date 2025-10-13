@@ -1,4 +1,22 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    <div>
+        {{ form_label(form.title) }}
+        {{ form_widget(form.title) }}
+        {{ form_errors(form.title) }}
+    </div>
+
+    <div>
+        {{ form_label(form.isbn) }}
+        {{ form_widget(form.isbn) }}
+        {{ form_errors(form.isbn) }}
+    </div>
+
+    <div>
+        {{ form_label(form.summary) }}
+        {{ form_widget(form.summary) }}
+        {{ form_errors(form.summary) }}
+    </div>
+
+    {{ form_rest(form) }}
+    <button class="btn">Créer</button>
 {{ form_end(form) }}

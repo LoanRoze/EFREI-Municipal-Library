@@ -1,0 +1,12 @@
+{# templates/bundles/TwigBundle/Exception/error403.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Action refusé (405){% endblock %}
+
+{% block body %}
+    <div class="error-page">
+        <h1>405 — Action refusé</h1>
+        <p>Vous n'etes pas autorisé a faire cette action</p>
+        <a href="{{ path('app_login') }}">Se connecter</a>
+    </div>
+{% endblock %}

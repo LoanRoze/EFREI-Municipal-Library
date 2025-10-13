@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    <h1 class="h3 mb-3 font-weight-normal">Create your account</h1>
+
+    {{ form_start(registrationForm) }}
+        {{ form_row(registrationForm.firstName) }}
+        {{ form_row(registrationForm.lastName) }}
+        {{ form_row(registrationForm.email) }}
+        {{ form_row(registrationForm.password) }}
+        {{ form_row(registrationForm.address) }}
+        {{ form_row(registrationForm.zipCode) }}
+        {{ form_row(registrationForm.birthDate) }}
+        {{ form_row(registrationForm.createdAt) }}
+        {{ form_row(registrationForm.updatedAt) }}
+
+        <button class="btn btn-lg btn-primary" type="submit">
+            Register
+        </button>
+    {{ form_end(registrationForm) }}
+{% endblock %}

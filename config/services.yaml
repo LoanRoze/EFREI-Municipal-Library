@@ -19,6 +19,14 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
+    App\EventListener\LoginSuccessListener:
+        tags:
+            - { name: kernel.event_listener, event: security.interactive_login }
 
+    App\EventListener\SessionLifetimeListener:
+        arguments:
+            $maxSeconds: 172800
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, priority: 0 }
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

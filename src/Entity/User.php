@@ -2,14 +2,17 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\UserRepository;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -17,24 +20,34 @@ class User
     private ?int $id = null;
 
     #[ORM\Column(length: 180)]
+    #[Assert\NotBlank(message: "L'adresse e-mail est obligatoire.")]
+    #[Assert\Email(message: "Veuillez entrer une adresse e-mail valide.")]
     private ?string $email = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Le mot de passe est obligatoire.")]
+    #[Assert\Length(min: 8, minMessage: "Le mot de passe doit contenir au moins {{ limit }} caractères.")]
     private ?string $password = null;
 
     #[ORM\Column]
     private array $roles = [];
 
     #[ORM\Column(length: 50)]
+    #[Assert\NotBlank(message: "Le nom est obligatoire.")]
+    #[Assert\Length(max: 50, maxMessage: "Le nom ne doit pas dépasser {{ limit }} caractères.")]
     private ?string $lastName = null;
 
     #[ORM\Column(length: 50)]
+    #[Assert\NotBlank(message: "Le prénom est obligatoire.")]
     private ?string $firstName = null;
 
     #[ORM\Column(length: 150)]
+    #[Assert\NotBlank(message: "L'adresse est obligatoire.")]
     private ?string $address = null;
 
     #[ORM\Column(length: 5)]
+    #[Assert\NotBlank(message: "Le code postal est obligatoire.")]
+    #[Assert\Regex(pattern: "/^[0-9]{5}$/", message: "Le code postal doit contenir 5 chiffres.")]
     private ?string $zipCode = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
@@ -207,5 +220,13 @@ class User
         }
 
         return $this;
+    }
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->email;
+    }
+
+    public function eraseCredentials(): void
+    {
     }
 }

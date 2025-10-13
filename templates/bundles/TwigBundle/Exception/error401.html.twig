@@ -1,0 +1,12 @@
+{# templates/bundles/TwigBundle/Exception/error403.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Accès refusé (401){% endblock %}
+
+{% block body %}
+    <div class="error-page">
+        <h1>401 — Accès refusé</h1>
+        <p>Vous devez vous connecter pour accéder à cette ressource.</p>
+        <a href="{{ path('app_login') }}">Se connecter</a>
+    </div>
+{% endblock %}
