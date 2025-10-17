@@ -13,7 +13,7 @@
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
     </head>
-    <body>
+    <body class="{{ app.request.cookies.get('myapp_dark_mode') == 'true' ? 'dark-mode' : 'light-mode' }}">
         {% block body %}{% endblock %}
     </body>
 </html>
